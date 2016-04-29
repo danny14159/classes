@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.core.service.ClassesService">
+  <insert id="insert" parameterType="TClasses">
+   insert into t_classes(name,profId,logo,balance) values(#{name},#{profId},#{logo},#{balance});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_classes set deleted='Y'
+   <where>
+    id=#{id}
+       </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_classes
+   <set>
+         <if test="name!=null">name=#{ name },</if>
+         <if test="logo!=null">logo=#{ logo },</if>
+         <if test="intro!=null">intro=#{ intro },</if>
+         <if test="balance!=null">balance=balance+ #{ balance },</if>
+         <if test="weibo!=null">weibo=#{ weibo },</if>
+       </set>
+   <where>
+    id=#{id}
+       </where>
+  </update>
+  <select id="list" resultType="TClasses" parameterType="hashmap">
+   select * from t_classes
+   <where>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="profId!=null">and profId=#{ profId }</if>
+       </where>
+  </select>
+  <select id="listByPage" resultType="TClasses" parameterType="hashmap">
+   select * from t_classes
+   <where>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="profId!=null">and profId=#{ profId }</if>
+       </where>
+   limit #{offset},#{rows}
+  </select>
+  <select id="load" resultType="TClasses" parameterType="hashmap">
+   select * from t_classes
+   <where>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="profId!=null">and profId=#{ profId }</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_classes
+   <where>
+         <if test="id!=null">and id = #{ id }</if>
+         <if test="name!=null">and name = #{ name }</if>
+         <if test="profId!=null">and profId = #{ profId }</if>
+       </where>
+  </select>
+  <select id="getBalance" resultType="double" parameterType="int">
+  	select balance from t_classes where id=#{id}
+  </select>
+ </mapper>
+ 

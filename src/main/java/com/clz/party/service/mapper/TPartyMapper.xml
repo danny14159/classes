@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.party.service.PartyService">
+  <insert id="insert" parameterType="TParty">
+   insert into t_party(stuNo,stuClz,expect,visit,enterTime,`exit`) values(#{stuNo},#{stuClz},#{expect},#{visit},#{enterTime},#{exit});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_party set deleted='Y'
+   <where>
+    stuNo=#{ stuNo } and stuClz=#{stuClz}
+       </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_party
+   <set>
+         <if test="expect!=null">expect=#{ expect },</if>
+         <if test="visit!=null">visit=visit+1,</if>
+         <if test="exit!=null">`exit`=#{exit},</if>
+         <if test="flower!=null">flower=#{flower},</if>
+         <if test="praise!=null">praise=#{praise},</if>
+         <if test="love!=null">love=#{love},</if>
+         <if test="visit!=null">visit=#{visit},</if>
+         <if test="exitTime!=null">exitTime=#{exitTime},</if>
+       </set>
+   <where>
+    stuNo=#{ stuNo } and stuClz=#{stuClz} and `exit`='N'
+       </where>
+  </update>
+  <update id="visit" parameterType="hashmap">
+   update t_party
+   set visit = visit+1
+   <where>
+    stuNo=#{ stuNo } and stuClz=#{stuClz} and `exit`='N'
+       </where>
+  </update>
+  <select id="list" resultType="TParty" parameterType="hashmap">
+   select * from t_party
+   <where>
+         stuNo=#{ stuNo } and stuClz=#{stuClz}
+       </where>
+  </select>
+  <select id="show" resultType="PartyDetail" parameterType="hashmap">
+   select 
+   t1.visit,t1.love,t1.praise,t1.flower,
+   t2.name,t2.no,t2.sex,t2.avatar,t2.hobbies,t2.fromProvince,t2.fromCity,
+   t3.name as `clzName`,t3.id as `clzId`,
+   t4.name as `profName`,t4.id as `profId`,
+   t5.name as `collegeName`,t5.id as `collegeId`,
+   t6.name as `univName`,t6.id as `univId` 
+   from t_party AS t1  
+   left join t_stu as t2 on t1.stuNo=t2.no and t1.stuClz=t2.classId 
+   left join t_classes as t3 on t2.classId=t3.id 
+   left join t_prof as t4 on t3.profId=t4.id 
+   left join t_college as t5 on t4.collegeId=t5.id 
+   left join t_univ as t6 on t5.univId=t6.id 
+   <where>
+    t1.`exit`='N' and t2.`deleted`='N'
+    <if test="no!=null">and t2.no=#{no}</if>
+    <if test="classId!=null">and t3.id=#{classId}</if>
+    <if test="profId!=null">and t4.id=#{profId}</if>
+    <if test="collegeId!=null">and t5.id=#{collegeId}</if>
+    <if test="univId!=null">and t6.id=#{univId}</if>
+    <if test="hobbies!=null">and t2.hobbies=#{hobbies}</if>
+    <if test="fromBirth!=null">and t2.birth>=#{fromBirth}</if>
+    <if test="toBirth!=null">and t2.birth&lt;=#{toBirth}</if>
+    <if test="fromProvince!=null">and t2.fromProvince=#{fromProvince}</if>
+    <if test="fromCity!=null">and t2.fromCity=#{fromCity}</if>
+    <if test="sex!=null">and t2.sex=#{sex}</if>
+    <if test="visit!=null">and t1.visit>#{visit}</if>
+    </where>
+   limit 
+  <if test="offset!=null">#{offset}</if> 
+  <if test="offset==null">0</if>,
+  <if test="rows!=null">#{rows}</if>
+  <if test="rows==null">1</if>
+   
+  </select>
+  <select id="load" resultType="TParty" parameterType="hashmap">
+   select expect from t_party
+   <where>
+        stuNo=#{ no } and stuClz=#{classId}
+        <if test="exit!=null">and `exit`=#{exit}</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_party
+   <where>
+        stuNo=#{ stuNo } and stuClz=#{stuClz}
+        <if test="exit!=null">and `exit`=#{exit}</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="counttotal" resultType="int" parameterType="hashmap">
+   select count(*)
+   from t_party AS t1  
+   left join t_stu as t2 on t1.stuNo=t2.no and t1.stuClz=t2.classId 
+   left join t_classes as t3 on t2.classId=t3.id 
+   left join t_prof as t4 on t3.profId=t4.id 
+   left join t_college as t5 on t4.collegeId=t5.id 
+   left join t_univ as t6 on t5.univId=t6.id 
+   <where>
+    t1.`exit`='N' and t2.`deleted`='N'
+    <if test="no!=null">and t2.no=#{no}</if>
+    <if test="classId!=null">and t3.id=#{classId}</if>
+    <if test="profId!=null">and t4.id=#{profId}</if>
+    <if test="collegeId!=null">and t5.id=#{collegeId}</if>
+    <if test="univId!=null">and t6.id=#{univId}</if>
+    <if test="hobbies!=null">and t2.hobbies=#{hobbies}</if>
+    <if test="fromBirth!=null">and t2.birth>=#{fromBirth}</if>
+    <if test="toBirth!=null">and t2.birth&lt;=#{toBirth}</if>
+    <if test="fromProvince!=null">and t2.fromProvince=#{fromProvince}</if>
+    <if test="fromCity!=null">and t2.fromCity=#{fromCity}</if>
+    <if test="sex!=null">and t2.sex=#{sex}</if>
+    <if test="visit!=null">and t1.visit>#{visit}</if>
+    </where>
+  </select>
+  <select id="history" parameterType="hashmap" resultType="TParty">
+  select * from t_party where stuNo=#{stuNo} and stuClz=#{stuClz} and `exit`='Y'
+  </select>
+ </mapper>
+ 

@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+/*party*/
+.party .item{
+	width:17.5%;
+	/* height:170px; */
+	float:left;
+	border-right:1px solid #dedede;
+	/* background-color:#f6f6f6; */
+	padding:5px;
+	text-align: center;
+}
+.party .item:hover{
+	cursor: pointer;
+	background-color: #68B2E5
+}
+.party .item:hover .btn{
+	color:#fff;
+}
+.party .item:hover a.h-text-warm:hover{color:#e56c19}
+.party .item:hover a.h-text-sky:hover{color:#006ac1}
+.party .item:hover a.h-text-warning:hover{color:#b01e00}
+.party .item a.imglink{
+	width: 102px;
+    height: 102px;
+    display: inline-block;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+	border-radius:5px;
+}
+.party .item img{
+	border-radius:5px;
+}
+.party .abstract{
+	display: inline-block;
+}
+
+.selectNumberScreen{ margin:20px auto;}
+.screenBox dl {border-bottom: #e6e6e6 1px dashed; overflow: hidden}
+.screenBox dl.noborder {border-bottom: 0px; border-left: 0px; border-top: 0px; border-right: 0px}
+.screenBox dl.goodstype {border-bottom: #e6e6e6 1px dashed}
+.screenBox dl dt {float: left; height: 30px}
+.screenBox dl dt {text-align: right; width: 100px; height: 22px; font-weight: 600; padding-top: 5px}
+.screenBox dl dd {position: relative; padding-bottom: 5px; padding-left: 0px; width: 620px; padding-right: 48px; float: left; height: 25px; overflow: hidden; padding-top: 0px}
+.screenBox dl dd a {line-height: 14px; margin: 9px 25px 0px 0px; display: inline-block; color: #999; overflow: hidden; text-decoration: none}
+.screenBox dl dd a:hover {background: #39c; color: #fff}
+.screenBox dl dd a.selected {background: #39c; color: #fff}
+.screenBox dl dd span.more {position: absolute; display: block; height: 14px; top: 6px; cursor: pointer; right: 1px}
+.screenBox dl dd span.more label {display: inline-block; cursor: pointer}
+.hasBeenSelected {border: #b2d1ff 1px solid;padding:2px; margin-top: 10px; overflow: hidden;}
+div.hasBeenSelected dl {background: #f6f8fd; overflow: hidden;margin-bottom: 0px;line-height: inherit;}
+.hasBeenSelected dl dt {float: left}
+.hasBeenSelected dl dd {float: left}
+.hasBeenSelected dl dt {text-align: right; line-height: 30px; width: 108px; height: 30px; font-weight: 600}
+.hasBeenSelected dl dd {padding-bottom: 4px; padding-left: 0px; width: 676px; padding-right: 0px; padding-top: 0px}
+.selectedInfor {border-bottom: #f60 1px solid; position: relative; border-left: #f60 1px solid; padding-bottom: 1px; margin: 4px 10px 0px 0px; padding-left: 5px; padding-right: 17px; display: block; white-space: nowrap; background: #fff; float: left; height: 17px; border-top: #f60 1px solid; border-right: #f60 1px solid; padding-top: 1px}
+.selectedInfor label {color: #f60}
+.eliminateCriteria {line-height: 21px; margin-top: 4px; padding-right:8px; float: left; color: #f60; cursor: pointer; font-weight: 600}
+.selectedInfor em {background: url("/f/assets/img/close.gif") no-repeat;cursor: pointer;display: block;height: 13px;overflow: hidden;position: absolute;right: 2px;top: 3px;width: 13px;}

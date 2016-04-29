@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.msg.service.MessageService">
+  <insert id="insert" parameterType="TMessage">
+   insert into t_message(state,type,content,sendTime,fromNo,fromClz,toNo,toClz,deleted) values(#{state},#{type},#{content},#{sendTime},#{fromNo},#{fromClz},#{toNo},#{toClz},#{deleted});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_message set deleted='Y'
+   <where>
+    id=#{id}
+         <if test="state!=null">and state=#{ state }</if>
+         <if test="type!=null">and type=#{ type }</if>
+         <if test="toId!=null">and toId=#{ toId }</if>
+       </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_message
+   <set>
+         <if test="state!=null">state=#{ state },</if>
+         <if test="type!=null">type=#{ type },</if>
+         <if test="content!=null">content=#{ content },</if>
+         <if test="deleted!=null">deleted=#{ deleted },</if>
+       </set>
+   <where>
+    id=#{id}
+         <if test="type!=null">and type=#{ type }</if>
+         <if test="fromId!=null">and fromId=#{ fromId }</if>
+         <if test="toId!=null">and toId=#{ toId }</if>
+       </where>
+  </update>
+  <select id="list" resultType="TMessage" parameterType="hashmap">
+   select * from t_message
+   <where>
+         <if test="state!=null">and state=#{ state }</if>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="type!=null">and type=#{ type }</if>
+         <if test="sendTime!=null">and sendTime=#{ sendTime }</if>
+         <if test="fromNo!=null">and fromNo=#{ fromNo }</if>
+         <if test="fromClz!=null">and fromClz=#{ fromClz }</if>
+         <if test="toNo!=null">and toNo=#{ toNo }</if>
+         <if test="toClz!=null">and toClz=#{ toClz }</if>
+         <if test="deleted!=null">and deleted=#{ deleted }</if>
+       </where>
+       order by id desc
+  </select>
+  <select id="listByPage" resultType="TMessage" parameterType="hashmap">
+   select * from t_message
+   <where>
+         <if test="state!=null">and state=#{ state }</if>
+         <if test="type!=null">and type=#{ type }</if>
+         <if test="sendTime!=null">and sendTime=#{ sendTime }</if>
+         <if test="fromNo!=null">and fromNo=#{ fromNo }</if>
+         <if test="fromClz!=null">and fromClz=#{ fromClz }</if>
+         <if test="toNo!=null">and toNo=#{ toNo }</if>
+         <if test="toClz!=null">and toClz=#{ toClz }</if>
+         <if test="deleted!=null">and deleted in ${deleted}</if>
+       </where>
+       order by id desc
+   limit #{offset},#{rows} 
+  </select>
+  <select id="load" resultType="TMessage" parameterType="hashmap">
+   select * from t_message
+   <where>
+         <if test="state!=null">and state=#{ state }</if>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="type!=null">and type=#{ type }</if>
+         <if test="sendTime!=null">and sendTime=#{ sendTime }</if>
+         <if test="fromNo!=null">and fromNo=#{ fromNo }</if>
+         <if test="fromClz!=null">and fromClz=#{ fromClz }</if>
+         <if test="toNo!=null">and toNo=#{ toNo }</if>
+         <if test="toClz!=null">and toClz=#{ toClz }</if>
+         <if test="deleted!=null">and deleted=#{ deleted }</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_message
+   <where>
+         <if test="state!=null">and state=#{ state }</if>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="type!=null">and type=#{ type }</if>
+         <if test="sendTime!=null">and sendTime=#{ sendTime }</if>
+         <if test="fromNo!=null">and fromNo=#{ fromNo }</if>
+         <if test="fromClz!=null">and fromClz=#{ fromClz }</if>
+         <if test="toNo!=null">and toNo=#{ toNo }</if>
+         <if test="toClz!=null">and toClz=#{ toClz }</if>
+         <if test="deleted!=null">and deleted in ${ deleted }</if>
+       </where>
+  </select>
+ </mapper>
+ 

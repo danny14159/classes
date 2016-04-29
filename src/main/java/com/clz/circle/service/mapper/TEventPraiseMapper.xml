@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.circle.service.EventPraiseService">
+  <insert id="insert" parameterType="TEventPraise">
+   insert into t_event_praise(stuNo,stuClz,evtid) values(#{stuNo},#{stuClz},#{evtid});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_event_praise set deleted='Y'
+   <where>
+    stuNo=#{stuNo} and stuClz=#{stuClz}
+       </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_event_praise
+   <set>
+       </set>
+   <where>
+    stuNo=#{stuNo} and stuClz=#{stuClz}
+       </where>
+  </update>
+  <select id="list" resultType="TEventPraise" parameterType="hashmap">
+   select * from t_event_praise
+   <where>
+         <if test="evtid!=null">and evtid=#{ evtid }</if>
+       </where>
+  </select>
+  <select id="listByPage" resultType="TEventPraise" parameterType="hashmap">
+   select * from t_event_praise
+   <where>
+         <if test="evtid!=null">and evtid=#{ evtid }</if>
+       </where>
+   limit #{offset},#{rows}
+  </select>
+  <select id="load" resultType="TEventPraise" parameterType="hashmap">
+   select * from t_event_praise
+   <where>
+         <if test="evtid!=null">and evtid=#{ evtid }</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_event_praise
+   <where>
+         <if test="evtid!=null">and evtid = #{ evtid }</if>
+       </where>
+  </select>
+ </mapper>
+ 

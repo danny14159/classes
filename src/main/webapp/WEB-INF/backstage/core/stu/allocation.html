@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="../../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+<link href="../../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+<link href="../../assets/css/reset.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.container{width: auto;padding: 20px 20px 0 20px;}
+</style>
+<title>分配新用户</title>
+</head>
+<body>
+	<div class="container form-horizontal">
+		<div class="row">
+			<div class="control-group span7">
+            <label class="control-label">选择学校：</label>
+            <div class="controls">
+              	<div id="s1"><input id="univid" type="hidden" class="input-normal control-text"></div>
+            </div>
+          </div>
+          <div class="control-group span7">
+            <label class="control-label">选择学院：</label>
+            <div class="controls">
+              	<div id="s2"><input id="collegeid" type="hidden" class="input-normal control-text"></div>
+            </div>
+          </div>
+          <div class="control-group span7">
+            <label class="control-label">选择专业：</label>
+            <div class="controls">
+              	<div id="s3"><input id="profid" type="hidden" class="input-normal control-text"></div>
+            </div>
+          </div>
+          <div class="control-group span7">
+            <label class="control-label">选择班级：</label>
+            <div class="controls">
+              	<div id="s4"><input id="clzid" type="hidden" class="input-normal control-text"></div>
+            </div>
+          </div>
+		</div>
+		<div id="grid"></div>
+		<form enctype="multipart/form-data" method="post" action="/upd/upstuxls">
+			选择Excel文件上传：<input type="file" name="stusxls"/>
+			<input type="hidden" value="" name="clzId" id="clzId"/>
+			<input type="submit" value="上传Excel" />
+		</form>
+	</div>
+	
+<div id="ctadd" class="hide">
+	<form class="form-horizontal" name="fmadd">
+        <div class="row">
+          <div class="control-group span8">
+            <label class="control-label"><s>*</s>学号：</label>
+            <div class="controls">
+              <input name="no" type="text" data-rules="{required:true}" class="input-normal control-text">
+            </div>
+          </div>
+          <div class="control-group span8">
+            <label class="control-label"><s>*</s>姓名：</label>
+            <div class="controls">
+              <input name="name" type="text" data-rules="{required:true,number : true}" class="input-normal control-text">
+            </div>
+          </div>
+          <div class="control-group span8">
+            <label class="control-label"><s>*</s>性别：</label>
+            <div class="controls">
+            	<select name="sex"><option>男</option><option>女</option></select>
+            </div>
+          </div>
+        </div>  
+      </form>
+</div>
+<script type="text/javascript" src="../../assets/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../assets/js/bui-min.js"></script>
+<script type="text/javascript" src="../../assets/js/config-min.js"></script>
+<script type="text/javascript">
+window.mn="stu";
+
+BUI.use(['bui/grid','bui/data','bui/overlay','bui/select'],function (Grid,Data,Overlay,Select) {
+	//添加：弹出窗
+	var dialog = new Overlay.Dialog({
+        title:'添加新学生',
+        width:500,
+        height:200,
+        //配置DOM容器的编号
+        contentId:'ctadd',
+        success:function () {
+          var aps = $('form').eq(1).serializeArray();
+          console.log(aps);
+          doAdd(aps[0].value,aps[1].value,aps[2].value);
+          this.close();
+        }
+    });
+
+	//列名
+    var columns = [{title:'学号',dataIndex:'no',editor : {xtype : 'text',rules:{required:true}}},
+            {title : '姓名',dataIndex :'name',editor : {xtype : 'text',rules:{required:true}}},
+            {title : '性别',dataIndex :'sex',editor : {xtype : 'text',rules:{required:true}}},
+            {title : '电话',dataIndex :'phone'},
+            {title : 'E-mail',dataIndex :'email'},
+            {title : '信息门户密码',dataIndex :'pwPortral'},
+            {title : '状态',dataIndex :'state'},
+            {title : '省',dataIndex :'fromProvince'},
+            {title : '市',dataIndex :'fromCity'},
+            {title : '权限',dataIndex :'type'},
+          ],
+      store = new Data.Store({
+    	url:'../../../'+mn+'/lst'
+      }),
+      editing = new Grid.Plugins.RowEditing({
+    	  triggerSelected:false,
+    	  triggerCls:'grid-td-col2'
+      }),
+      grid = new Grid.Grid({
+        render : '#grid',
+        columns : columns,
+        width : 860,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : confirmDel
+              }
+            }]
+        }
+
+      });
+    
+    
+    $.get('../../../univ/lst',function(data){
+    	var items=[];
+    	for(var i in data) items.push({text:data[i].name,value:data[i].id});
+    	var select = new Select.Select({  
+        	render:'#s1',valueField:'#univid',items : items
+     	});
+    	var selectcollege = new Select.Select({
+    		render:'#s2',valueField:'#collegeid'
+     	});
+    	var selectclz = new Select.Select({
+    		render:'#s4',valueField:'#clzid'
+     	});
+    	var selectprof = new Select.Select({
+    		render:'#s3',valueField:'#profid'
+    	});
+    	selectclz.on('change',function(ev){
+    		window.clzid = ev.item.value;
+    		$('#clzId').val(window.clzid);
+    		store.load({classId:ev.item.value});
+			grid.render(); 
+    	});
+		selectcollege.on('change',function(_ev){
+			window.collegeId = _ev.item.value;
+			$.get('../../../prof/lst',{collegeId:collegeId},function(_d){
+    			var _items=[];
+    			for(var i in _d) _items.push({text:_d[i].name,value:_d[i].id});
+    			if(_items.length) $('#profid').prop('value',_items[0].value);
+    			selectprof.render();
+    			selectprof.set('items',_items);
+    		});
+		});
+    	selectprof.on('change',function(ev){
+    		window.profId = ev.item.value;
+    		$.get('../../../classes/lst',{profId:profId},function(_d){
+    			var _items=[];
+    			for(var i in _d) _items.push({text:_d[i].name,value:_d[i].id});
+    			if(_items.length) $('#clzid').prop('value',_items[0].value);
+    			selectclz.render();
+    			selectclz.set('items',_items);
+    		});
+    	});
+		
+    	select.on('change',function(ev){
+    		window.univId = ev.item.value;
+    		
+    		$.get('../../../college/lst',{univId:univId},function(_d){
+    			var _items=[];
+    			for(var i in _d) _items.push({text:_d[i].name,value:_d[i].id});
+    			if(_items.length) $('#collegeid').prop('value',_items[0].value);
+    			selectcollege.render();
+    			selectcollege.set('items',_items);
+    		});
+    	});
+	    select.render();
+     });
+    editing.on('accept',function(ev){
+  	  console.log(ev.record);
+  	  //post modify record
+  	  $.get('../../../'+mn+'/upd',
+  			  ev.record,function(data){
+  		  if(!data) BUI.Message.Alert('修改失败','error');
+  		  else {store.load();}
+  		  	
+  	  },'json')
+  	  
+    });
+    function addFunction(){
+    	dialog.show();
+    }
+    
+    function doAdd (no,name,sex){
+      var newData={no:no,name:name,classId:clzid,sex:sex};
+      
+      //post new record
+      $.get('../../../'+mn+'/ins',newData,function(data){
+    	  if(!data) BUI.Message.Alert('添加失败','error');
+	      //editing.edit(newData,'name'); //添加记录后，直接编辑
+	      else{store.load();}
+      });
+    }
+
+    function confirmDel(){
+    	var selections = grid.getSelection();
+    	if(selections.length)
+    	{
+           BUI.Message.Confirm('确认要删除么？',function(){
+             setTimeout(function(){
+               	BUI.Message.Alert('这只是简单的错误信息','error');
+               		delFunction();
+          		});
+         	},'question');
+    	}
+    }
+    
+    function delFunction(){
+      var selections = grid.getSelection();
+      console.log(selections);
+      //post delete record(s)
+      for(var p in selections){
+    	  
+	     // $.post('../../../univ/del',selections[p])
+      }
+      store.remove(selections);
+    }
+    
+  });
+</script>
+</body>
+</html>

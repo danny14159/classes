@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.commons.service.NoticeService">
+  <insert id="insert" parameterType="TNotice">
+   insert into t_notice(classId,content,time,title) values(#{classId},#{content},#{time},#{title});
+  </insert>
+  <delete id="deletex" parameterType="hashmap">
+   delete from t_notice where
+    id=#{id}
+      and classId=#{classId}
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_notice
+   <set>
+         <if test="content!=null">content=#{ content },</if>
+         <if test="title!=null">title=#{ title },</if>
+       </set>
+   <where>
+    id=#{id}
+       </where>
+  </update>
+  <select id="list" resultType="TNotice" parameterType="hashmap">
+   select * from t_notice
+   <where>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+       </where>
+  </select>
+  <select id="listByPage" resultType="TNotice" parameterType="hashmap">
+   select * from t_notice
+   <where>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+       </where>
+   limit #{offset},#{rows}
+  </select>
+  <select id="load" resultType="TNotice" parameterType="hashmap">
+   select * from t_notice
+   <where>
+         <if test="id!=null">and id=#{ id }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_notice
+   <where>
+         <if test="id!=null">and id = #{ id }</if>
+         <if test="classId!=null">and classId = #{ classId }</if>
+       </where>
+  </select>
+ </mapper>

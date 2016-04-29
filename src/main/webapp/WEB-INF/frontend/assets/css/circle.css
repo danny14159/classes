@@ -1,0 +1,82 @@
+@CHARSET "UTF-8";
+.fallheader{
+	width:1133px;
+	min-width: 1133px;
+	height: 64px;
+	padding-left: 100px;
+	line-height: 64px;
+}
+.fallheader .fallfilter{
+	height: 40px;
+	line-height: 40px;
+	margin-left: 15px;
+	display: inline-block;
+	padding: 0 8px;
+	font-size: 20px;
+	color: #666;
+}
+
+.fallheader .fallfilter:hover{
+	color:red;
+	cursor: pointer;
+}
+.fallheader .fallfilter.current{
+	font-size: 24px;
+	color:red;
+}
+.cc-header{
+	width: 80%;
+	margin-left: 15%;
+	height: 2.5em;
+	line-height: 2.5em;
+	border-left: 25px solid #08c;
+	position: relative;
+}
+.cc-title{
+	font-size: 22px;
+	position: absolute;
+	z-index: 100;
+	background: #fff;
+	padding-left: 7px;
+	padding-right: 15px;
+}
+.cc-hr{
+	position: absolute;
+	top:12px;
+	z-index: 50;
+	width: 100%;
+	height: 1px;
+	border: none;
+	background: #bababa;
+}
+.cc-content{
+	margin-left: 25%;
+	padding: 15px;
+}
+.cc-content p{
+	line-height: 1.5em;
+	padding: 5px;
+}
+.cc-label{
+	width:25%;
+	text-align: right;
+	float: left;
+	line-height: 3em;
+}
+.cc-body{
+	margin-left:5px;
+	float: left;
+	width:74%;
+	text-align: left;
+	line-height: 3em;
+	vertical-align: middle;
+}
+.cc-timestamp{
+	float: right;
+	color:#777;
+}
+.cc-remark{
+	float: left;
+	width: 75%;
+	line-height: 3em;
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.party.service.PartyInteractService">
+  <insert id="insert" parameterType="TPartyInteract">
+   insert into t_party_interact(fromNo,toNo,fromClz,toClz,love,praise,flower) values(#{fromNo},#{toNo},#{fromClz},#{toClz},#{love},#{praise},#{flower});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_party_interact set deleted='Y'
+   <where>
+    fromNo=#{fromNo} and toNo=#{toNo} and fromClz=#{fromClz} and toClz=#{toClz}
+       </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_party_interact
+   <set>
+         <if test="love!=null">love=#{ love },</if>
+         <if test="praise!=null">praise=#{ praise },</if>
+         <if test="flower!=null">flower=#{ flower },</if>
+       </set>
+   <where>
+     toNo=#{toNo} and toClz=#{toClz}
+    <if test="fromNo!=null">and fromNo=#{fromNo}</if>
+    <if test="fromClz!=null">and fromClz=#{fromClz}</if>
+       </where>
+  </update>
+  <select id="list" resultType="TPartyInteract" parameterType="hashmap">
+   select * from t_party_interact
+   <where>
+         <if test="fromNo!=null">and fromNo=#{ fromNo }</if>
+         <if test="fromClz!=null">and fromCLz=#{ fromClz }</if>
+         <if test="toNo!=null">and toNo=#{ toNo }</if>
+         <if test="toClz!=null">and toClz=#{ toClz }</if>
+       </where>
+  </select>
+  <select id="listByPage" resultType="TPartyInteract" parameterType="hashmap">
+   select * from t_party_interact
+    <where>
+         <if test="fromNo!=null">and fromNo=#{ fromNo }</if>
+         <if test="fromClz!=null">and fromCLz=#{ fromClz }</if>
+         <if test="toNo!=null">and toNo=#{ toNo }</if>
+         <if test="toClz!=null">and toClz=#{ toClz }</if>
+       </where>
+   limit #{offset},#{rows}
+  </select>
+  <select id="load" resultType="TPartyInteract" parameterType="hashmap">
+   select * from t_party_interact
+    <where>
+         <if test="fromNo!=null">and fromNo=#{ fromNo }</if>
+         <if test="fromClz!=null">and fromCLz=#{ fromClz }</if>
+         <if test="toNo!=null">and toNo=#{ toNo }</if>
+         <if test="toClz!=null">and toClz=#{ toClz }</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_party_interact
+    <where>
+         <if test="fromNo!=null">and fromNo=#{ fromNo }</if>
+         <if test="fromClz!=null">and fromClz=#{ fromClz }</if>
+         <if test="toNo!=null">and toNo=#{ toNo }</if>
+         <if test="toClz!=null">and toClz=#{ toClz }</if>
+         <if test="love!=null">and `love`=#{love}</if>
+        <if test="praise!=null">and `praise`=#{praise}</if>
+        <if test="flower!=null">and `flower`=#{flower}</if>
+       </where>
+  </select>
+  <select id="who" resultType="PartyDetail" parameterType="hashmap">
+  	select 
+   t1.visit,t1.love,t1.praise,t1.flower,
+   t2.name,t2.no,t2.sex,t2.avatar,t2.hobbies,t2.fromProvince,t2.fromCity,
+   t3.name as `clzName`,t3.id as `clzId`,
+   t4.name as `profName`,t4.id as `profId`,
+   t5.name as `collegeName`,t5.id as `collegeId`,
+   t6.name as `univName`,t6.id as `univId` 
+   from t_party_interact as tm
+   left join t_party as t1 on tm.fromClz=t1.stuClz and tm.fromNo=t1.stuNo
+   left join t_stu as t2 on t1.stuNo=t2.no and t1.stuClz=t2.classId 
+   left join t_classes as t3 on t2.classId=t3.id 
+   left join t_prof as t4 on t3.profId=t4.id 
+   left join t_college as t5 on t4.collegeId=t5.id 
+   left join t_univ as t6 on t5.univId=t6.id
+    <where>
+    t1.`exit`='N' and t2.`deleted`='N' and tm.toClz=#{toClz} and tm.toNo=#{toNo}
+    <if test="flower!=null">and tm.flower='Y'</if>
+    <if test="praise!=null">and tm.praise='Y'</if>
+    <if test="love!=null">and tm.love='Y'</if>
+    </where>
+    limit #{offset},#{rows}
+  </select>
+  <select id="ilove" resultType="PartyDetail" parameterType="hashmap">
+  	select 
+   t1.visit,t1.love,t1.praise,t1.flower,
+   t2.name,t2.no,t2.sex,t2.avatar,t2.hobbies,t2.fromProvince,t2.fromCity,
+   t3.name as `clzName`,t3.id as `clzId`,
+   t4.name as `profName`,t4.id as `profId`,
+   t5.name as `collegeName`,t5.id as `collegeId`,
+   t6.name as `univName`,t6.id as `univId` 
+   from t_party_interact as tm
+   left join t_party as t1 on tm.toClz=t1.stuClz and tm.toNo=t1.stuNo
+   left join t_stu as t2 on t1.stuNo=t2.no and t1.stuClz=t2.classId 
+   left join t_classes as t3 on t2.classId=t3.id 
+   left join t_prof as t4 on t3.profId=t4.id 
+   left join t_college as t5 on t4.collegeId=t5.id 
+   left join t_univ as t6 on t5.univId=t6.id
+    <where>
+    t1.`exit`='N' and t2.`deleted`='N' and tm.fromClz=#{fromClz} and tm.fromNo=#{fromNo}
+    <if test="flower!=null">and tm.flower='Y'</if>
+    <if test="praise!=null">and tm.praise='Y'</if>
+    <if test="love!=null">and tm.love='Y'</if>
+    </where>
+    limit #{offset},#{rows}
+  </select>
+ </mapper>
+ 

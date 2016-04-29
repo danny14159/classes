@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clz.commons.service.MoneyRecordService">
+  <insert id="insert" parameterType="TMoneyRecord">
+   insert into t_money_record(payNo,payTime,reason,amount,remark,classId,balance) values(#{payNo},#{payTime},#{reason},#{amount},#{remark},#{classId},#{balance});
+  </insert>
+  <select id="list" resultType="TMoneyRecord" parameterType="hashmap">
+   select * from t_money_record
+   <where>
+         <if test="payNo!=null">and payNo=#{ payNo }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+       </where>
+  </select>
+  <select id="listByPage" resultType="TMoneyRecord" parameterType="hashmap">
+   select * from t_money_record
+   <where>
+         <if test="payNo!=null">and payNo=#{ payNo }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+         <if test="expire!=null">and expire>=#{ expire }</if>
+       </where>
+   order by payTime desc
+   limit 0,50
+  </select>
+  <select id="load" resultType="TMoneyRecord" parameterType="hashmap">
+   select * from t_money_record
+   <where>
+         <if test="payNo!=null">and payNo=#{ payNo }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_money_record
+   <where>
+         <if test="payNo!=null">and payNo = #{ payNo }</if>
+         <if test="classId!=null">and classId = #{ classId }</if>
+       </where>
+  </select>
+ </mapper>
+ 

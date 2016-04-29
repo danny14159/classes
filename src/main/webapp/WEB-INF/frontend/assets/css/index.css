@@ -1,0 +1,271 @@
+@CHARSET "UTF-8";
+#row1{
+	margin-top: 15px;
+}
+.pics,.intro,.icenter{
+	float: left;
+}
+.pics,.intro{
+	margin-right: 1%;
+	width: 32%;
+}
+.icenter{
+	float:right;
+	margin-right: 10px;
+	width: 24%;
+	min-width: 263px;
+}
+.icenter .ui-box-head-title{
+	text-align: center;
+	margin: 0 auto;
+}
+.icenter .ui-box-container{
+	position:relative;
+	height:243px;
+}
+.icenter .ilist{
+	margin: 15px;
+	margin-right: 0;
+}
+.icenter .ilist li{
+	height: 2em;
+	line-height: 2em;
+}
+.icenter .info{
+	position:absolute;
+	top:25px;
+	right:15px;
+	text-align: center;
+	width:112px;
+}
+.icenter .avatar{
+	width:102px;
+	height: 102px;
+	margin-bottom: 15px;
+}
+.icenter .ui-box-content{
+	height:100%;
+	position: relative;
+}
+.icenter .btngroup{
+	position: absolute;
+	bottom: 30px;
+	left:0;
+	width:100%;
+}
+.icenter .btngroup button{
+	width:32%;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+.icenter .avatar img{
+}
+.ilist .ui-dlist-tit{
+	width:40%;
+}
+.ilist .ui-dlist-det{
+	width:60%;
+}
+.intro .ui-box-container{
+	height: 280px;
+	overflow: auto;
+}
+.pics{
+	width:40%;
+	height:280px;
+}
+#row2{
+	margin-top: 15px;	
+}
+.party{
+	width:85%;
+	float: left;
+}
+.commons{
+	width: 14%;
+	float: right;
+}
+.commons p.text{
+	font-size: 19px;
+	font-weight: 500;
+	text-align: center;
+}
+.commons .ui-box-container{
+}
+.commons .ui-box-content ul{
+	/* bottom: 0;
+	right:0; */
+	margin: 30px auto 0;
+	width: 100%;
+	
+}
+.commons .ui-box-content li{
+	height: 45px;
+	line-height: 45px;
+	margin-bottom: 10px;
+}
+.commons .ui-box-content li input{
+	width:100%;
+	height:45px;
+}
+#row2 .ui-box-head{
+	height:1.5em;
+	line-height: 1.5em;
+	padding: 4px;
+	padding-left: 2em;
+}
+#row2 .ui-box-container{
+}
+
+/*slider id focus*/
+
+#focus{
+	position: relative;
+	overflow: hidden;
+}
+#focus ul{
+	position: absolute;
+	height:100%;
+}
+#focus ul li{
+	float: left;
+	position: relative;
+	height: 100%;
+}
+#focus ul li img{
+}
+#focus .icon{
+	height: 20px;
+	position: absolute;
+	left:0;
+	bottom:0;
+	text-align: center;
+	padding: 2px 0;
+}
+#focus .prenext{
+	position: absolute;
+	cursor: pointer;
+	top:0;
+}
+#focus .pre{
+	left:0;
+}
+#focus .next{
+	right:0;
+}
+#focus .pre img,#focus .next img{
+	margin-top:100px;	
+}
+#focus .next img{
+	margin-left: 70px;
+}
+#focus span{
+	display: inline-block;
+	width:20px;
+	height:5px;
+	cursor: pointer;
+	background: #999;
+	margin-left: 5px;
+}
+#focus span.on{
+	background-color:orange; 
+}
+#focus .shade{
+	width:100%;
+	height:18%;
+	background-color: #000;
+	opacity:0.5;
+	color:#fff;
+	position:absolute;
+	left:0;
+	bottom:0;
+}
+#focus .shade .desc{
+	font-weight: 600;
+	padding:7px 0 0 7px;
+	font-size: 1.5em;
+}
+/*end of slider*/
+
+
+
+#elevator_item {
+	width: 60px;
+	height: 100px;
+	position: fixed;
+	right: 15px;
+	bottom: 15px;
+	-webkit-transition: opacity .4s ease-in-out;
+	-moz-transition: opacity .4s ease-in-out;
+	-o-transition: opacity .4s ease-in-out;
+	opacity: 1;
+	z-index: 100020;
+}
+#elevator_item.off {
+	opacity: 0;
+	visibility: hidden
+}
+#elevator {
+	display: block;
+	width: 60px;
+	height: 50px;
+	background: url(/f/assets/img/icon_top.png) center center no-repeat;
+	background-color: #444;
+	background-color: rgba(0,0,0,.6);
+	border-radius: 2px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.2);
+	cursor: pointer;
+	margin-bottom: 10px
+}
+#elevator:hover {
+	background-color: rgba(0,0,0,.7)
+}
+#elevator:active {
+	background-color: rgba(0,0,0,.75)
+}
+#elevator_item .qr {
+	display: block;
+	width: 60px;
+	height: 40px;
+	border-radius: 2px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.2);
+	cursor: pointer;
+	background: url(/f/assets/img/icon_code.png) center center no-repeat;
+	background-color: #444;
+	background-color: rgba(0,0,0,.6)
+}
+#elevator_item .qr:hover {
+	background-color: rgba(0,0,0,.7)
+}
+#elevator_item .qr:active {
+	background-color: rgba(0,0,0,.75)
+}
+#elevator_item .qr-popup {
+	width: 170px;
+	height: 200px;
+	background: #fff;
+	box-shadow: 0 1px 8px rgba(0,0,0,.1);
+	position: absolute;
+	left: -180px;
+	bottom: 0;
+	border-radius: 2px;
+	display: none;
+	text-align: center
+}
+#elevator_item .qr-popup .code-link {
+	display: block;
+	margin: 10px;
+	color: #777
+}
+#elevator_item .qr-popup .code {
+	display: block;
+	margin-bottom: 10px
+}
+#elevator_item .qr-popup .arr {
+	width: 6px;
+	height: 11px;
+	background: url(/f/assets/img/code_arrow.png) 0 0 no-repeat;
+	position: absolute;
+	right: -6px;
+	bottom: 14px
+}

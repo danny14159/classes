@@ -1,0 +1,24 @@
+{
+	"C":[
+		"^/party/(show|count|enter|exit|upd)",
+		"^/homework/(lstp)",
+		"^/stu/(connections|upd|pwdupd)",
+		"^/partyi/(who_(1|2|3)|i_love|love|praise|flower)",
+		"^/msg/(sndmsg|read|lists|listr|dels|delr)",
+		"^/iq/(qg|qsci|qbb)",
+		"^/stupics/(photo.json|del/(.*))",
+		"^/upd/(stuavatar|stupics|ueimage|ueditor/controller|)",
+		"^/feed/ins",
+		"^/evt/lstp",
+		"^/evtcmt/(comment|loadcmt)"
+	],
+	"M":[
+		"^/homework/(ins|del/(.*)|upd)",
+		"^/classes/(settings)",
+		"^/stupics/(hwpics|clzlogo)",
+		"^/money/(ins)",
+		"^/upd/(upstuxls|clzlogo)",
+		"^/notice/(ins|del/(.*))"
+	],
+	"S":[]
+}

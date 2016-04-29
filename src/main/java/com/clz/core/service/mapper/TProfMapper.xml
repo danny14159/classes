@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.core.service.ProfService">
+  <insert id="insert" parameterType="TProf">
+   insert into t_prof(name,collegeId) values(#{name},#{collegeId});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_prof set deleted='Y'
+   <where>
+    id=#{id}
+       </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_prof
+   <set>
+         <if test="name!=null">name=#{ name },</if>
+       </set>
+   <where>
+    id=#{id}
+       </where>
+  </update>
+  <select id="list" resultType="TProf" parameterType="hashmap">
+   select * from t_prof
+   <where>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="collegeId!=null">and collegeId=#{ collegeId }</if>
+       </where>
+  </select>
+  <select id="listByPage" resultType="TProf" parameterType="hashmap">
+   select * from t_prof
+   <where>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="collegeId!=null">and collegeId=#{ collegeId }</if>
+       </where>
+   limit #{offset},#{rows}
+  </select>
+  <select id="load" resultType="TProf" parameterType="hashmap">
+   select * from t_prof
+   <where>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="collegeId!=null">and collegeId=#{ collegeId }</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_prof
+   <where>
+         <if test="name!=null">and name = #{ name }</if>
+         <if test="collegeId!=null">and collegeId = #{ collegeId }</if>
+       </where>
+  </select>
+ </mapper>
+ 

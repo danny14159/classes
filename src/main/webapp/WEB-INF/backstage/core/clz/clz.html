@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="../../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+<link href="../../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+<link href="../../assets/css/reset.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.container{width: auto;padding: 20px 20px 0 20px;}
+</style>
+<title>班级管理</title>
+</head>
+<body>
+	<div class="container form-horizontal">
+		<div class="row">
+			<div class="control-group span8">
+            <label class="control-label">选择学校：</label>
+            <div class="controls">
+              	<div id="s1"><input id="univid" type="hidden" class="input-normal control-text"></div>
+            </div>
+          </div>
+          <div class="control-group span8">
+            <label class="control-label">选择学院：</label>
+            <div class="controls">
+              	<div id="s2"><input id="collegeid" type="hidden" class="input-normal control-text"></div>
+            </div>
+          </div>
+          <div class="control-group span8">
+            <label class="control-label">选择专业：</label>
+            <div class="controls">
+              	<div id="s3"><input id="profid" type="hidden" class="input-normal control-text"></div>
+            </div>
+          </div>
+		</div>
+		<div id="grid"></div>
+	</div>
+<script type="text/javascript" src="../../assets/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../assets/js/bui-min.js"></script>
+<script type="text/javascript" src="../../assets/js/config-min.js"></script>
+<script type="text/javascript">
+window.mn="classes";
+
+BUI.use(['bui/grid','bui/data','bui/overlay','bui/select'],function (Grid,Data,Overlay,Select) {
+	
+
+	//列名
+    var columns = [{title:'ID',dataIndex:'id'},
+            {title : '班级名称',dataIndex :'name',editor : {xtype : 'text',rules:{required:true}}}
+          ],
+      store = new Data.Store({
+    	url:'../../../'+mn+'/lst'
+      }),
+      editing = new Grid.Plugins.RowEditing({
+    	  triggerSelected:false,
+    	  triggerCls:'grid-td-col2'
+      }),
+      grid = new Grid.Grid({
+        render : '#grid',
+        columns : columns,
+        width : 700,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : confirmDel
+              }
+            }]
+        }
+
+      });
+    
+    
+    $.get('../../../univ/lst',function(data){
+    	var items=[];
+    	for(var i in data) items.push({text:data[i].name,value:data[i].id});
+    	var select = new Select.Select({  
+        	render:'#s1',valueField:'#univid',items : items
+     	});
+    	var selectcollege = new Select.Select({
+    		render:'#s2',valueField:'#collegeid'
+     	});
+    	var selectprof = new Select.Select({
+    		render:'#s3',valueField:'#profid'
+    	})
+		selectcollege.on('change',function(_ev){
+			window.collegeId = _ev.item.value;
+			$.get('../../../prof/lst',{collegeId:collegeId},function(_d){
+    			var _items=[];
+    			for(var i in _d) _items.push({text:_d[i].name,value:_d[i].id});
+    			if(_items.length) $('#profid').prop('value',_items[0].value);
+    			selectprof.render();
+    			selectprof.set('items',_items);
+    		});
+		});
+    	selectprof.on('change',function(ev){
+    		window.profId = ev.item.value;
+			store.load({profId:ev.item.value});
+			grid.render(); 
+    	});
+		
+    	select.on('change',function(ev){
+    		window.univId = ev.item.value;
+    		
+    		$.get('../../../college/lst',{univId:univId},function(_d){
+    			var _items=[];
+    			for(var i in _d) _items.push({text:_d[i].name,value:_d[i].id});
+    			if(_items.length) $('#collegeid').prop('value',_items[0].value);
+    			selectcollege.render();
+    			selectcollege.set('items',_items);
+    		});
+    	});
+	    select.render();
+     });
+    editing.on('accept',function(ev){
+  	  console.log(ev.record);
+  	  //post modify record
+  	  $.get('../../../'+mn+'/upd',
+  			  ev.record,function(data){
+  		  if(!data) BUI.Message.Alert('修改失败','error');
+  		  else {store.load();}
+  		  	
+  	  },'json')
+  	  
+    });
+
+    function addFunction(){
+      var newData = {};
+      store.add(newData);
+      newData.profId = profId;
+      //post new record
+      $.get('../../../'+mn+'/ins',newData,function(data){
+    	  if(!data) BUI.Message.Alert('添加失败','error');
+	      //editing.edit(newData,'name'); //添加记录后，直接编辑
+	      else{store.load();}
+      });
+    }
+
+    function confirmDel(){
+    	var selections = grid.getSelection();
+    	if(selections.length)
+    	{
+           BUI.Message.Confirm('确认要删除么？',function(){
+             setTimeout(function(){
+               	BUI.Message.Alert('这只是简单的错误信息','error');
+               		delFunction();
+          		});
+         	},'question');
+    	}
+    }
+    
+    function delFunction(){
+      var selections = grid.getSelection();
+      console.log(selections);
+      //post delete record(s)
+      for(var p in selections){
+    	  
+	     // $.post('../../../univ/del',selections[p])
+      }
+      store.remove(selections);
+    }
+    
+  });
+</script>
+</body>
+</html>

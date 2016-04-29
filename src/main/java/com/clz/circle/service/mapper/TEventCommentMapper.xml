@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.circle.service.EventCommentService">
+  <insert id="insert" parameterType="TEventComment">
+   insert into t_event_comment(stuNo,stuClz,content,time,evtid,replyNo,replyClz) values(#{stuNo},#{stuClz},#{content},#{time},#{evtid},#{replyNo},#{replyClz});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_event_comment set deleted='Y'
+   <where>
+    =#{}
+       </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_event_comment
+   <set>
+       </set>
+   <where>
+    =#{}
+       </where>
+  </update>
+  <select id="list" resultType="TEventComment" parameterType="hashmap">
+  select t_event_comment.*,t_stu.name AS stuName from t_event_comment
+    left join t_stu on t_event_comment.stuNo=t_stu.no and t_event_comment.stuClz=t_stu.classId
+   <where>
+         <if test="evtid!=null">and evtid=#{ evtid }</if>
+       </where>
+       <!-- 按照发表时间降序 -->
+   order by time desc
+  </select>
+  <select id="listByPage" resultType="TEventComment" parameterType="hashmap">
+   select * from t_event_comment
+   <where>
+         <if test="evtid!=null">and evtid=#{ evtid }</if>
+       </where>
+   limit #{offset},#{rows}
+  </select>
+  <select id="load" resultType="TEventComment" parameterType="hashmap">
+   select t_event_comment.*,t_stu.name AS stuName from t_event_comment
+    left join t_stu on t_event_comment.stuNo=t_stu.no and t_event_comment.stuClz=t_stu.classId;
+    where evtid=#{ evtid }
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_event_comment
+   <where>
+         <if test="evtid!=null">and evtid = #{ evtid }</if>
+       </where>
+  </select>
+ </mapper>
+ 

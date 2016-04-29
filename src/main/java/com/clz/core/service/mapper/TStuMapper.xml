@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.core.service.StuService">
+  <insert id="insert" parameterType="TStu">
+   insert into t_stu(no,classId,name,sex,phone,email,avatar,password,connection,pwPortral,state,signature,birth,hobbies,fromProvince,fromCity) values(#{no},#{classId},#{name},#{sex},#{phone},#{email},#{avatar},#{password},#{connection},#{pwPortral},#{state},#{signature},#{birth},#{hobbies},#{fromProvince},#{fromCity});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_stu set deleted='Y'
+   <where>
+    no=#{no} and classId=#{classId}
+   </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_stu
+   <set>
+         <if test="name!=null">name=#{ name },</if>
+         <if test="sex!=null">sex=#{ sex },</if>
+         <if test="phone!=null">phone=#{ phone },</if>
+         <if test="email!=null">email=#{ email },</if>
+         <if test="avatar!=null">avatar=#{ avatar },</if>
+         <if test="password!=null">password=#{ password },</if>
+         <if test="connection!=null">connection=#{ connection },</if>
+         <if test="pwPortral!=null">pwPortral=#{ pwPortral },</if>
+         <if test="state!=null">state=#{ state },</if>
+         <if test="signature!=null">signature=#{ signature },</if>
+         <if test="birth!=null">birth=#{ birth },</if>
+         <if test="hobbies!=null">hobbies=#{ hobbies },</if>
+         <if test="fromProvince!=null">fromProvince=#{ fromProvince },</if>
+         <if test="fromCity!=null">fromCity=#{ fromCity },</if>
+       </set>
+   <where>
+    no=#{no} and classId=#{classId}
+       </where>
+  </update>
+  <select id="list" resultType="TStu" parameterType="hashmap">
+   select * from t_stu
+   <where>
+         <if test="no!=null">and no=#{ no }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="sex!=null">and sex=#{ sex }</if>
+         <if test="state!=null">and state=#{ state }</if>
+         <if test="fromProvince!=null">and fromProvince=#{ fromProvince }</if>
+         <if test="fromCity!=null">and fromCity=#{ fromCity }</if>
+       </where>
+  </select>
+  <select id="listByPage" resultType="TStu" parameterType="hashmap">
+   select * from t_stu
+   <where>
+         <if test="no!=null">and no=#{ no }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="sex!=null">and sex=#{ sex }</if>
+         <if test="state!=null">and state=#{ state }</if>
+         <if test="fromProvince!=null">and fromProvince=#{ fromProvince }</if>
+         <if test="fromCity!=null">and fromCity=#{ fromCity }</if>
+       </where>
+   limit #{offset},#{rows}
+  </select>
+  <select id="load" resultType="TStu" parameterType="hashmap">
+   select * from t_stu
+   <where>
+         <if test="no!=null">and no=#{ no }</if>
+         <if test="classId!=null">and classId=#{ classId }</if>
+         <if test="name!=null">and name=#{ name }</if>
+         <if test="sex!=null">and sex=#{ sex }</if>
+         <if test="state!=null">and state=#{ state }</if>
+         <if test="fromProvince!=null">and fromProvince=#{ fromProvince }</if>
+         <if test="fromCity!=null">and fromCity=#{ fromCity }</if>
+       </where>
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_stu
+   <where>
+         <if test="no!=null">and no = #{ no }</if>
+         <if test="classId!=null">and classId = #{ classId }</if>
+         <if test="name!=null">and name = #{ name }</if>
+         <if test="sex!=null">and sex = #{ sex }</if>
+         <if test="state!=null">and state = #{ state }</if>
+         <if test="fromProvince!=null">and fromProvince = #{ fromProvince }</if>
+         <if test="fromCity!=null">and fromCity = #{ fromCity }</if>
+       </where>
+  </select>
+  <select id="connections" resultType="StuConnections" parameterType="int">
+  	select connection as `connections`,`no`,`classId`,t_classes.name as `className`,t_stu.`name` from t_stu 
+  	left join t_classes on t_stu.classId=t_classes.id
+  	where classId in (select id from t_classes where profId= (select profId from t_classes where id=#{id}))
+  	order by `no` asc
+  </select>
+  <select id="brief" resultType="StuBrief" parameterType="hashmap">
+  select t1.avatar,t1.name as `name`,t1.classId,t1.no,t2.name as `clzName`,t5.name as `univName`,t3.name as `profName`,t4.name as `collegeName`
+  from t_stu t1
+  left join t_classes t2 on t1.classId=t2.id
+  left join t_prof t3 on t2.profId=t3.id
+  left join t_college t4 on t3.collegeId=t4.id
+  left join t_univ t5 on t4.univId=t5.id   
+  where t1.no=#{no} and t1.classId=#{classId}
+  </select>
+ </mapper>
+ 

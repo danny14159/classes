@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clz.commons.service.HomeworkService">
+	<insert id="insert" parameterType="THomework">
+		insert into t_homework(expire,expireAdd,subject,content,pics,visit,classId,deleted) values(#{expire},#{expireAdd},#{subject},#{content},#{pics},#{visit},#{classId},#{deleted});
+	</insert>
+	<delete id="delete" parameterType="hashmap">
+		update t_homework set deleted='Y'
+		<where>
+			id=#{id}
+			<if test="subject!=null">and subject=#{subject}</if>
+		</where>
+	</delete>
+	<update id="update" parameterType="hashmap">
+		update t_homework
+		<set>
+			<if test="expire!=null">expire=#{expire},</if>
+			<if test="expireAdd!=null">expireAdd=#{expireAdd},</if>
+			<if test="subject!=null">subject=#{subject},</if>
+			<if test="content!=null">content=#{content},</if>
+			<if test="pics!=null">pics=#{pics},</if>
+			<if test="visit!=null">visit=visit+1,</if>
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+	<select id="list" resultType="THomework" parameterType="hashmap">
+		select * from t_homework
+		<where>
+			<if test="classId!=null">and classId = #{classId}</if>
+			<if test="expire!=null">and expire > #{expire}</if>
+			<if test="deleted!=null">and deleted = #{deleted}</if>
+		</where>
+	</select>
+	<select id="listByPage" resultType="THomework" parameterType="hashmap">
+		select * from t_homework
+		<where>
+			classId = #{classId}
+			<if test="expire!=null">and expire > #{expire}</if>
+			<if test="deleted!=null">and deleted = #{deleted}</if>
+		</where>
+		limit #{offset},#{rows}
+	</select>
+	<select id="load" resultType="THomework" parameterType="int">
+		select * from t_homework where id=#{id}
+		limit 0,1
+	</select>
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) from t_homework
+		<where>
+			<if test="classId!=null">and classId = #{classId}</if>
+			<if test="expire!=null">and expire > #{expire}</if>
+			<if test="deleted!=null">and deleted = #{deleted}</if>
+		</where>
+	</select>
+	<select id="test" resultType="THomework" parameterType="hashmap">
+		select * from t_homework
+		<where>
+			<if test="classId!=null">and classId = #{classId}</if>
+			<if test="expire!=null">and expire > #{expire}</if>
+			<if test="deleted!=null">and deleted = #{deleted}</if>
+		</where>
+	</select>
+</mapper>

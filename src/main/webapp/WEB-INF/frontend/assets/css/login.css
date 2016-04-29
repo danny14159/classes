@@ -1,0 +1,118 @@
+@CHARSET "UTF-8";
+body{
+	color:#fff;
+}
+a:hover,a:FOCUS{color:#4FAEFF;}
+h6,h2{
+	color:#fff;
+}
+a{
+	color:#A3CFEF;
+}
+#main small{color:#BEBEBE;}
+#bg{
+	font-family:'微软雅黑';
+	background-color:#c0c0c0;
+	background-image: url("../img/f_back.jpg");
+	background-position:0% 80%;
+	background-repeat: no-repeat;
+}
+
+#header{
+	background-color:rgb(43, 125, 184);
+	height:52px;
+}
+#header  span{
+	line-height:40px;
+	color:#fff;
+}
+#header  span > a{
+	color:#fff;
+}
+#main{
+	margin-top:10px;
+}
+#form{
+	background-color:rgb(255,255,255);
+	background-color:rgba(255,255,255,0.37);
+	border-top:4px solid rgb(43, 125, 184);
+	padding:20px 35px;;
+	box-shadow:1px 1px 1px #353535;
+}
+#form h4{color:#fff;}
+#form small{
+	color:#999;
+}
+#btn_login{
+	margin-top:40px;
+}
+#role{
+	margin:20px 0 10px;
+}
+#btn_signup{
+	margin-top:25px;
+}
+#footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color:rgb(241,241,241);
+	color:rgb(62,69,69);
+border-top:5px solid rgb(43, 125, 184);
+}
+#main h6{
+	margin-left:20px;
+}
+#form button{
+	width:100%;
+	height:40px;
+	background-color:#f40;
+	color:#fff;
+	padding:0;
+	border:none;
+	border-radius:5px;
+}
+#form button:hover{
+	background-color:#f73500;
+}
+#info{
+	height:30px;
+}
+#info div{
+	height:30px;
+	line-height:20px;
+	padding:5px;
+}
+#form hr{
+	margin-bottom:5px;
+	background-color:rgb(43, 125, 184);
+	height:1px;
+}
+#selclz{
+	width:200px;
+	height: 50px;
+	background-color: #fff;
+	position: relative;
+}
+.triup{
+	width:0;
+	height:0;
+	border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 15px solid #fff;
+    position: absolute;
+    left: 50%;
+    top:-15px;
+}
+.bklogo-46{
+	height: 52px;
+	margin-top: 6px;
+}
+div.bklogo-46{
+	width:46px;
+	height:40px;
+	display:inline-block;
+	background:url('/f/assets/img/logo/logo46.png') no-repeat center;
+}

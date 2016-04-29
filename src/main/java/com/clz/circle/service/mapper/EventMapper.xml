@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.clz.circle.service.EventService">
+  <insert id="insert" parameterType="TEvent">
+   insert into t_event(act_time,`desc`,title,pics,publisherNo,publisherClz,type,autho) values(#{act_time},#{desc},#{title},#{pics},#{publisherNo},#{publisherClz},#{type},#{autho});
+  </insert>
+  <delete id="delete" parameterType="hashmap">
+   update t_event set deleted='Y'
+   <where>
+    id=#{id}
+       </where>
+  </delete>
+  <update id="update" parameterType="hashmap">
+   update t_event
+   <set>
+         <if test="desc!=null">desc=#{ desc },</if>
+         <if test="title!=null">title=#{ title },</if>
+         <if test="pics!=null">pics=#{ pics },</if>
+         <if test="autho!=null">autho=#{ autho },</if>
+       </set>
+   <where>
+    id=#{id}
+       </where>
+  </update>
+  <select id="list" resultType="TEvent" parameterType="hashmap">
+   select * from t_event
+   <where>
+       </where>
+  </select>
+  <select id="listByPage" resultType="TEvent" parameterType="hashmap">
+   select * from t_event
+   <where>
+   		<if test="autho!=null">and autho=#{autho}</if>
+   		<if test="publisherClz!=null">and publisherClz=#{publisherClz}</if>
+       </where>
+   order by id desc
+   limit #{offset},#{rows}
+  </select>
+  <select id="load" resultType="TEvent" parameterType="hashmap">
+   select * from t_event
+  where id=#{id}
+   limit 0,1
+  </select>
+  <select id="count" resultType="int" parameterType="hashmap">
+   select count(*) from t_event
+   <where>
+	  <if test="autho!=null">and autho=#{autho}</if>
+   		<if test="publisherClz!=null">and publisherClz=#{publisherClz}</if>
+       </where>
+  </select>
+ </mapper>

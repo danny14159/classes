@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- <properties resource="com/clz/conf/jdbc.properties"></properties> -->
+	<typeAliases>
+		<package name="com.clz.commons.bean"/>
+		<package name="com.clz.complaint.bean"/>
+		<package name="com.clz.core.bean"/>
+		<package name="com.clz.msg.bean"/>
+		<package name="com.clz.party.bean"/>
+		<package name="com.clz.circle.bean"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<!-- <mapper resource="com/clz/commons/service/mapper/HomeworkMapper.xml"></mapper>
+		<mapper resource="com/clz/commons/service/mapper/TMoneyRecordMapper.xml"></mapper>
+		<mapper resource="com/clz/msg/service/mapper/TMessageMapper.xml"></mapper> 
+		<mapper resource="com/clz/party/service/mapper/TPartyMapper.xml"></mapper>
+		<mapper resource="com/clz/party/service/mapper/TPartyInteractMapper.xml"></mapper> 
+		<mapper resource="com/clz/core/service/mapper/TUnivMapper.xml"></mapper>
+		<mapper resource="com/clz/core/service/mapper/TCollegeMapper.xml"></mapper>
+		<mapper resource="com/clz/core/service/mapper/TProfMapper.xml"></mapper>
+		<mapper resource="com/clz/core/service/mapper/TClassesMapper.xml"></mapper>
+		<mapper resource="com/clz/core/service/mapper/TStuMapper.xml"></mapper>
+		<mapper resource="com/clz/core/service/mapper/TStuPicsMapper.xml"></mapper> -->
+	</mappers>
+</configuration>
