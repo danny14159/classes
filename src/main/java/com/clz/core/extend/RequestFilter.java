@@ -14,7 +14,6 @@ import com.clz.core.module.SystemModule;
  *
  */
 public class RequestFilter extends HandlerInterceptorAdapter {
-	private final String BASE_URI="http://localhost:8080";
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,

@@ -12,7 +12,6 @@ import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.Configurator;
 
 import com.clz.core.bean.TUniv;
-import com.google.gson.Gson;
 
 
 public class TestLog4j {

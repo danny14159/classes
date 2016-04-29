@@ -3,7 +3,6 @@ package com.clz.core.bean;
 import java.sql.Date;
 
 import javax.validation.constraints.Null;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;

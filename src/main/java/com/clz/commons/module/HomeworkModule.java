@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.clz.commons.bean.THomework;
 import com.clz.commons.service.HomeworkService;
-import com.clz.commons.service.MoneyRecordService;
 import com.clz.core.bean.TStu;
 import com.clz.core.extend.AjaxReturn;
 import com.clz.core.module.BasicModule;
@@ -22,8 +21,6 @@ public class HomeworkModule extends BasicModule<THomework>{
 	
 	@Autowired
 	private HomeworkService homeworkService;
-	@Autowired
-	private MoneyRecordService moneyRecordService;
 	
 
 	@Override

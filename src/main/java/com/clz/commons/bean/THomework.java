@@ -3,7 +3,6 @@ package com.clz.commons.bean;
 import java.sql.Date;
 
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

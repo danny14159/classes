@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>  
-<configuration status="OFF">  
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">  
+<log4j:configuration status="OFF">  
   <appenders>  
     <Console name="Console" target="SYSTEM_OUT">  
       <PatternLayout charset="UTF-8" pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>  
@@ -10,4 +11,4 @@
       <appender-ref ref="Console"/>  
     </root>  
   </loggers>
-</configuration>
+</log4j:configuration>

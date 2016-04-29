@@ -73,7 +73,7 @@ public class SystemModule {
 	@Autowired
 	private EventPraiseService eventPraiseService;
 	
-	private static final String SF="/f";
+	//private static final String SF="/f";
 	private static final String SB="/b";
 	private static final String ME_SES="me.ses";
 	
