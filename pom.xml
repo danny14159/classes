@@ -29,11 +29,11 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>3.2.13.RELEASE</version>
 		</dependency>
-	    <dependency>
-	        <groupId>org.springframework.security</groupId>
-	        <artifactId>spring-security-web</artifactId>
-	        <version>3.2.5.RELEASE</version>
-	    </dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.2.5.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -94,22 +94,28 @@
 			<artifactId>javax.servlet.jsp.jstl</artifactId>
 			<version>3.2-b06</version>
 		</dependency>
-		
+		<!-- http://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
-  <groupId>commons-httpclient</groupId>
-  <artifactId>commons-httpclient</artifactId>
-  <version>3.1</version>
-</dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 		<dependency>
-		<!-- 文件上传模块 -->
-		  <groupId>commons-fileupload</groupId>
-		  <artifactId>commons-fileupload</artifactId>
-		  <version>1.3.1</version>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
 		</dependency>
 		<dependency>
-		  <groupId>commons-io</groupId>
-		  <artifactId>commons-io</artifactId>
-		  <version>2.4</version>
+			<!-- 文件上传模块 -->
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
