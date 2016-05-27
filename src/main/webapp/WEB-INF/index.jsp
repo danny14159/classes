@@ -44,14 +44,14 @@
 			</ul>
 		</div>
 
-			<%-- <div class="intro">
+			 <div class="intro">
 				<div class="ui-box">
 					<div class="ui-box-container">
 						<div class="ui-box-content"><a href="icenter_sys_mgr" class="text text-warm">班级简介</a></div>
 						<p>${clz.intro }</p>
 					</div>
 				</div>
-			</div> --%>
+			</div> 
 			<div class=" icenter">
 				<div class="ui-box">
 					<div class="ui-box-head">

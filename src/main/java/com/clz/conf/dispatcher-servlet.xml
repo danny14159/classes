@@ -93,7 +93,7 @@
 	<!-- 数据库配置 -->
   	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://127.0.0.1:3306/classes"
+		p:url="jdbc:mysql://127.0.0.1:3306/classes?characterEncoding=utf8"
 		p:username="root" p:password="804956748" p:maxActive="10" p:maxIdle="10">
 	</bean>
 <!--   	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
