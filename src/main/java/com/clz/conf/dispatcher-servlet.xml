@@ -19,6 +19,9 @@
 	<context:component-scan
 		base-package="com.clz.commons.module,com.clz.complaint.module,com.clz.core.module,com.clz.msg.module,com.clz.party.module,com.clz.circle.module" />
 
+	<!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:com/clz/conf/jdbc.properties" />
+
 	<!-- 默认的注解映射的支持 -->
 	<mvc:annotation-driven />
 		
@@ -92,9 +95,9 @@
 	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" />	
 	<!-- 数据库配置 -->
   	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://127.0.0.1:3306/classes?characterEncoding=utf8"
-		p:username="root" p:password="804956748" p:maxActive="10" p:maxIdle="10">
+		destroy-method="close" p:driverClassName="${driver}"
+		p:url="${url}"
+		p:username="${username}" p:password="${password}" p:maxActive="10" p:maxIdle="10">
 	</bean>
 <!--   	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
